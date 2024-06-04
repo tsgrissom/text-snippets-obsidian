@@ -14,7 +14,9 @@ export default class TextSnippets extends Plugin {
 
 	onInit() {}
 
-	async onload() {
+	// Lifecycle
+
+	async _onLoad() {
 		console.log("Loading snippets plugin");
 		await this.loadSettings();
 		
@@ -44,7 +46,7 @@ export default class TextSnippets extends Plugin {
 		});
 	}
 
-	async onunload() {
+	async _onUnload() {
 		console.log("Unloading text snippet plugin");
 
 		this.cmEditors = [];
@@ -54,6 +56,8 @@ export default class TextSnippets extends Plugin {
 			cm.off('keydown', (cm, event) => this.handleKeyDown(cm, event));
 		});
 	}
+
+	// Fs
 
 	async loadSettings() {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
